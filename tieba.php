@@ -98,7 +98,7 @@ header("content-Type: text/html; charset=Utf-8");
 $cookieArr = require_once 'cookie.php';
 
 foreach ($cookieArr as $key => $val) {
-	$tieba = new tieba($cookie);
+	$tieba = new tieba($val);
 	$tieba->sign();
 }
 
