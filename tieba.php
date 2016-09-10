@@ -38,20 +38,20 @@ class tieba {
               if ($value == '')
                   continue;
               $url = "http://tieba.baidu.com/mo/m?kw={$value}";
-              $get_url = curl_get($url);
+              $get_url = $this->curl_get($url);
               preg_match_all('/<td style="text-align:right;"><a href="(.*?)">签到<\/a>/', $get_url, $matches);
               if (isset($matches[1][0]))
               {
                   $s = str_replace('&amp;', '&', $matches[1][0]);
                   $sign_url = 'http://tieba.baidu.com'.$s;
-                  $get_sign = curl_get($sign_url,true);
+                  $get_sign = $this->curl_get($sign_url,true);
                   if (strpos($get_sign, '签到成功'))
                   {
                       echo iconv('GB2312', 'UTF-8', urldecode($value))."-签到成功<br/>";
                   }
                   else{
                       sleep(1);//休息一秒后重复一次，简单应对频率太快。
-                      $get_sign = curl_get($sign_url,true);
+                      $get_sign = $this->curl_get($sign_url,true);
                   }
               }
               elseif (strpos($get_url, '已签到')){
